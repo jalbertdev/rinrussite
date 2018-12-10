@@ -229,7 +229,7 @@ a.article:hover {
                     <a href="#">Home</a>
                 </li>
                 <li>
-                    <a class="hover" href="#">Build Models</a>
+                    <a href="{% url 'index' %}">Build Models</a>
                 </li>
 				<li>
                     <a href="#">Search</a>
@@ -238,11 +238,13 @@ a.article:hover {
                     <a href="#">Forum</a>
                 </li>
 				<li>
-                    <a href="#">Contact</a>
+                    <a href="{% url 'about' %}">About</a>
                 </li>
                 
             </ul>
+			<!-- ADD NEW IMAGE
 			<img src="http://www.memphis.edu/communications/brand/download/horizontalhighres.jpg" class="img-fluid" alt="Responsive image">
+			-->
         </nav>
 
         <!-- Page Header  -->
