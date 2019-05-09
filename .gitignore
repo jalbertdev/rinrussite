@@ -1,3 +1,12 @@
+#ignore these files
 db.sqlite3
 
+#ignore these folders
+rinrusmain/migrations
+rinrusmain/static/files
 
+
+#ignore these filetypes
+*.pyc
+*.pyo
+.DS_Store
