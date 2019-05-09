@@ -44,7 +44,9 @@ a:focus {
     text-decoration: none;
     transition: all 0.3s;
 }
-
+a.basicLink {
+	color: blue !important;
+}
 /*my stuff */
 .form-control{
     width:350px;
@@ -218,8 +220,8 @@ a.article:hover {
 <body>
 {% include "./header.html" %}	
 
-Residue Interaction Network-based ResidUe Selector (RINRUS), is a software toolkit that guides selection of atoms in a protein structure to be included in the QM-cluster, QM/MM, or ONIOM model. RINRUS is written in Python and is available on the GitHub page of Dr. Qianyi Cheng: <a href="https://github.com/MiloCheng17/RINRUS"> https://github.com/MiloCheng17/RINRUS </a>
-Please contact Prof. Nathan DeYonker (ndyonker@memphis.edu) for more details.
+Residue Interaction Network-based ResidUe Selector (RINRUS), is a software toolkit that guides selection of atoms in a protein structure to be included in the QM-cluster, QM/MM, or ONIOM model. <br> RINRUS is written in Python and is available on the GitHub page of Dr. Qianyi Cheng: <a class="basicLink" href="https://github.com/MiloCheng17/RINRUS"> https://github.com/MiloCheng17/RINRUS </a>
+<br> Please contact Prof. Nathan DeYonker (ndyonker@memphis.edu) for more details.
  
 </body>
 </html>
