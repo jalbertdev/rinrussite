@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>RinRus</title>
+    <title>Search-RinRus</title>
 
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
@@ -215,6 +215,20 @@ a.article:hover {
     }
 }
 </style>
+
+<!-- attempt at hiding date field
+<script language="javascript">
+	function hideDate(){
+		//if(document.getElementByID("dropdown")=="Date"){
+			document.getElementByID("dateInput").style.visibility="hidden";
+		//else{
+			//document.getElementByID("dateInput").style.visibility="visible";
+		//}
+	}
+</script>
+-->
+
+
 <body>
 {% include "./header.html" %}	
 
@@ -225,11 +239,26 @@ a.article:hover {
 {% csrf_token %}
 	STUFF HERE
 	<div class="form-group row">
+		&nbsp;
 		<input class="form-control" type="text"  name="jobName">	
+		&nbsp;&nbsp;&nbsp;
+		<div class="row" >
+				<div class= "col-md-3">
+					<select class="btn btn-mini" id="dropdown" name="row1"> 		
+					<option>Job Name</option>
+					<option>ID Number</option>
+					<option>User</option>
+					<option onclick="hideDate()">Date</option>
+					<option>Show All</option>
+					</select> 
+				</div>
+		</div>
+		&nbsp;&nbsp;&nbsp;&nbsp;
+		<input type="date" id="dateInput" name="bday">
 	</div>
 	<small id="fileHelp" class="form-text text-muted">Search by job name</small>
 	<p>
-		<button type="submit" class="btn btn-primary">Submit</button>
+		<button type="submit" onclick="hideDate()" class="btn btn-primary">Submit</button>
 	</p>
 	<hr>
 	
