@@ -235,26 +235,25 @@ a.article:hover {
 
 {% load static %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form  action="{% url 'results' %}" type="GET">
 {% csrf_token %}
-	STUFF HERE
 	<div class="form-group row">
 		&nbsp;
-		<input class="form-control" type="text"  name="jobName">	
+		<input class="form-control" type="text"  name="textField" >	
 		&nbsp;&nbsp;&nbsp;
 		<div class="row" >
 				<div class= "col-md-3">
-					<select class="btn btn-mini" id="dropdown" name="row1"> 		
+					<select class="btn btn-mini" id="dropdown" name="searchType"> 		
 					<option>Job Name</option>
 					<option>ID Number</option>
 					<option>User</option>
-					<option onclick="hideDate()">Date</option>
+					<option>Date</option> 
 					<option>Show All</option>
 					</select> 
 				</div>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="date" id="dateInput" name="bday">
+		<input type="date" id="dateInput" name="date">
 	</div>
 	<small id="fileHelp" class="form-text text-muted">Search by job name</small>
 	<p>

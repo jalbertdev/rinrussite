@@ -30,7 +30,27 @@ def index(request):
 		except:
 			return render(request, 'rinrusmain/index.html',{'uploaded_file_error': "Model failed to create"})
 	return render(request,'rinrusmain/index.html')
+
 	
+def search(request):
+	return render(request,'rinrusmain/search.html')
+
+	
+def results(request):
+	if request.method == 'GET':
+		text=request.GET.get('textField', None)
+		type=request.GET.get('searchType', None)
+		date=request.GET.get('date',None)
+		print(text)
+		print(type)
+		simulations=[]
+		if(type=="Show All"):
+			print("did it")
+			simulations = Simulation.objects.all()
+
+		return render(request,'rinrusmain/results.html',{'simulations' : simulations})
+
+		
 def about(request):
         return render(request,'rinrusmain/about.html')
 
