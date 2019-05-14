@@ -4,7 +4,7 @@ from datetime import datetime
 
 class Simulation(models.Model):
 	unProcessedPDBURL = models.CharField(max_length=100)
-	idNumber=models.IntegerField(default=0)
+	idNumber=models.AutoField(primary_key=True)
 	valid=models.BooleanField(default=False) 
 	dateRan=models.DateTimeField(default=datetime.now, blank=True)
 	residue=models.CharField(max_length=100)

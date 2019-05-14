@@ -232,9 +232,12 @@ a.article:hover {
 <body>	
 {% block terms %}
 {% include "./search.html" %}	
- dpg
- {% for simulations in simulations %}
- Mess with the dog, you get the frog
+
+ {% for simulation in simulations %}
+ <a href="{% url 'sim' simulation.idNumber  %}"> Mess with the dog, you get the frog </a>
+ 
+ <br>
+
  {% endfor %}
  
 </body>

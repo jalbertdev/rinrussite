@@ -22,5 +22,6 @@ urlpatterns = [
 	path('search/',views.search, name='search'),
 	path('results/',views.results, name='results'),
 	path('about/',views.about, name='about'),
+	path('sim/<int:sim_ID>',views.sim_page, name='sim'),
 	
 ]

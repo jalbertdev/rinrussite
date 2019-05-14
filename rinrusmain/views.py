@@ -8,6 +8,7 @@ from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 
+from . import models
 
 def index(request):
 	if request.method == 'POST' and request.FILES['myfile']:
@@ -46,9 +47,13 @@ def results(request):
 		simulations=[]
 		if(type=="Show All"):
 			print("did it")
-			simulations = Simulation.objects.all()
-
+			simulations = list(models.Simulation.objects.all())
+		print(simulations)
 		return render(request,'rinrusmain/results.html',{'simulations' : simulations})
+		
+def sim_page(request,sim_ID):
+	model=models.Simulation.get(idNumber=sim_ID)
+	return render(request,'rinrusmain/results.html',{'simulations' : simulations})
 
 		
 def about(request):
