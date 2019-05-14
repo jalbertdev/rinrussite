@@ -45,10 +45,6 @@ a:focus {
     transition: all 0.3s;
 }
 
-a.basicLink {
-	color: blue !important;
-}
-
 /*my stuff */
 .form-control{
     width:350px;
@@ -222,15 +218,13 @@ a.article:hover {
 
 
 <body>	
-{% block terms %}
-{% include "./search.html" %}	
-
- {% for simulation in simulations %}
- <a class="basicLink" href="{% url 'sim' simulation.idNumber  %}"> Mess with the dog, you get the frog </a>
+{% include "./header.html" %}	
+{% block terms %}	
  
+ {{ simulation.simName }}
  <br>
 
- {% endfor %}
+
  
 </body>
 {% endblock %}

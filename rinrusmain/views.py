@@ -52,8 +52,12 @@ def results(request):
 		return render(request,'rinrusmain/results.html',{'simulations' : simulations})
 		
 def sim_page(request,sim_ID):
-	model=models.Simulation.get(idNumber=sim_ID)
-	return render(request,'rinrusmain/results.html',{'simulations' : simulations})
+	print("dog")
+	model=Simulation.objects.filter(idNumber=sim_ID).first()
+	
+	print(model)
+	
+	return render(request,'rinrusmain/sim_page.html',{'simulation' : model})
 
 		
 def about(request):
