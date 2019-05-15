@@ -56,8 +56,9 @@ def sim_page(request,sim_ID):
 	print("dog")
 	model=Simulation.objects.filter(idNumber=sim_ID).first()
 	
-	print(settings.MEDIA_ROOT+ model.unProcessedPDBURL)
-	fileTest  = open(settings.MEDIA_ROOT+ model.unProcessedPDBURL, "r") 
+	unProcFile  = open(settings.MEDIA_ROOT+ model.unProcessedPDBURL, "r") 
+	unProcFile = File(unProcFile)
+
 	
 	print("DOG HERE")
 	return render(request,'rinrusmain/sim_page.html',{'simulation' : model}) 
