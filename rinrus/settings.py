@@ -122,4 +122,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT= os.path.join(BASE_DIR, 'rinrusmain/static/files')
+MEDIA_ROOT= os.path.join(BASE_DIR+ '\\rinrusmain','static','files')

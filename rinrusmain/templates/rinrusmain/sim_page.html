@@ -221,8 +221,12 @@ a.article:hover {
 {% include "./header.html" %}	
 {% block terms %}	
  
- {{ simulation.simName }}
- <br>
+Simulation Name: {{ simulation.simName }} <br>
+Residue: {{ simulation.residue }} <br>
+Chain:{{ simulation.chain }} <br>
+Process Date: 	{{simulation.dateRan|date:"SHORT_DATE_FORMAT" }} 
+				{{ simulation.dateRan|time:"H:i" }} <br>
+<a href="{{MEDIA_URL}}/{{simulation.unProcessedPDBURL}} ">Download</a>
 
 
  

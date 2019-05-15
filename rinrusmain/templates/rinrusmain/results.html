@@ -218,6 +218,10 @@ a.article:hover {
         display: none;
     }
 }
+
+tab40 {padding-left : 0em}
+tab41 {padding-left : 4em}
+tab42 {padding-left : 6em}
 </style>
 
 
@@ -226,7 +230,8 @@ a.article:hover {
 {% include "./search.html" %}	
 
  {% for simulation in simulations %}
- <a class="basicLink" href="{% url 'sim' simulation.idNumber  %}"> Mess with the dog, you get the frog </a>
+ <a class="basicLink" href="{% url 'sim' simulation.idNumber  %}">  {{simulation.idNumber}}:  {{simulation.simName}}   &emsp; {{simulation.dateRan|date:"SHORT_DATE_FORMAT" }} 
+				{{ simulation.dateRan|time:"H:i" }} </a>
  
  <br>
 

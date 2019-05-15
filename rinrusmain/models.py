@@ -11,3 +11,4 @@ class Simulation(models.Model):
 	chain=models.CharField(max_length=100)
 	simName=models.CharField(max_length=100)
 	
+	
