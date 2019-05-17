@@ -10,6 +10,6 @@ class Simulation(models.Model):
 	residue=models.CharField(max_length=100)
 	chain=models.CharField(max_length=100)
 	simName=models.CharField(max_length=100)
-	modelVersion=models.DecimalField(max_digits=4, decimal_places=2)
+	modelVersion=models.DecimalField(max_digits=4, decimal_places=2, default=0.9)
 	
 	
