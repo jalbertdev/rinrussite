@@ -43,13 +43,15 @@ def results(request):
 		text=request.GET.get('textField', None)
 		type=request.GET.get('searchType', None)
 		date=request.GET.get('date',None)
-		print(text)
-		print(type)
+		#print(date)
 		simulations=[]
 		if(type=="Show All"):
-			print("did it")
 			simulations = list(models.Simulation.objects.all())
-		print(simulations)
+		elif(type=="Job Name"):
+			simulations = list(models.Simulation.objects.filter(simName__icontains=text))
+		elif(type=="ID Number"):
+			simulations = list(models.Simulation.objects.filter(idNumber=int(text)))
+		#print(simulations)
 		return render(request,'rinrusmain/results.html',{'simulations' : simulations})
 		
 def sim_page(request,sim_ID):
