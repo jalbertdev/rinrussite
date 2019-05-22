@@ -224,11 +224,16 @@ a.article:hover {
 <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <div class="form-group row">
+	<input class="form-control" type="text"  name="jobName">	
+</div>
+<small id="fileHelp" class="form-text text-muted">Pick a unique job name</small>
+<br>
 		
-			<input class="form-control" type="text"  name="jobName">	
-			</div>
-			
-			<small id="fileHelp" class="form-text text-muted">Pick a unique job name</small>
+<div class="form-group row">
+	<input class="form-control" type="text"  name="userName">	
+</div>
+<small id="fileHelp" class="form-text text-muted">Provide a user or organization name</small>
+
 			<p>
 			<div class="form-group row">
 			
