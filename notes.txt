@@ -1,0 +1,54 @@
+# (User interation needed) After get a raw pdb file (raw.pdb), check ambiguous atoms, clean up
+# (Automated) Run reduce, generate a new H added pdb file (raw_h.pdb) 
+# (Can be automated) Check the new pdb file, if there is metal, replace with an atom with same coordination (such as replace Mg with O)
+# (UIN) Check all ligands, make sure H atoms were added correctly (may need to delete or add more H based on certain condition)
+# (Can be automated) If there is atom "CA" or "CB" in ligands, replace with "CA'" and "CB'"
+---------------------------------------------------------------------------------
+START HERE	
+
+# After previous 3 check stpes, save the file to a new file (raw_h_modify.pdb)
+# Use this new pdb file (raw_h_modify.pdb), run probe and save result to *.probe
+# Run probe2rins.py
+# (Can be skipped for now) Modify freq_per_res.dat file for trim residues
+# (Needs to modify for user input) Use raw_h.pdb, freq_per_res.dat, and other needed files run probe_freq_2pdb.py
+# Run pymol_scripts.py to add H to the trimmed pdb files for differnt size model
+
+IN THE END: 
+
+
+
+Add way to display PDB information to site
+INSTALL PYMOL
+
+-----------------------------------------------------------------------------------
+ALGORITHM:
+
+To run probe:
+chmod u+x probe
+./probe 3bwm_h_mg_ts_wGlu199.ent > filename.probe
+
+To run probe2rins.py:
+python probe2rins.py filename.probe A:300,A:301,A:302		(Chain:Residue),
+This creates 3 files
+
+Probe_freq_2pdb.py:
+Needs user input
+Creates a ton of files
+
+Pymol_scripts.py:
+Run for each of the generated files
+python pymol_scripts.py filename.pdb 301,302				(Residues)
+
+Run Pymol: 
+(just once) pymol -qc log.pml		
+
+Final Step:
+Zip up all of the files from last two steps and make downloadable
+
+
+
+
+
+
+
+
