@@ -35,12 +35,13 @@ Probe_freq_2pdb.py:
 Needs user input
 Creates a ton of files
 
+Run Pymol: 
+(just once) pymol -qc log.pml		
+
+
 Pymol_scripts.py:
 Run for each of the generated files
 python pymol_scripts.py filename.pdb 301,302				(Residues)
-
-Run Pymol: 
-(just once) pymol -qc log.pml		
 
 Final Step:
 Zip up all of the files from last two steps and make downloadable
