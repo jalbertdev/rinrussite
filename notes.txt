@@ -25,13 +25,14 @@ ALGORITHM:
 
 To run probe:
 chmod u+x probe
-./probe 3bwm_h_mg_ts_wGlu199.ent > filename.probe
+./../scripts/probe 3bwm_h_mg_ts_wGlu199.ent > filename.probe
 
 To run probe2rins.py:
 python probe2rins.py filename.probe A:300,A:301,A:302		(Chain:Residue),
 This creates 3 files
 
 Probe_freq_2pdb.py:
+python ../scripts/probe_freq_2pdb.py 3bwm_h_mg_ts_wGlu199.ent file.probe file.probe A,300,A,301,A,304
 Needs user input
 Creates a ton of files
 
