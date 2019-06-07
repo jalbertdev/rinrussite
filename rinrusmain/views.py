@@ -15,16 +15,23 @@ from . import models
 def index(request):
 	if request.method == 'POST' and request.FILES['myfile']:
 		myfile = request.FILES['myfile']
-		folder='rinrusmain\\static\\files\\'+request.POST["jobName"] + '\\'
+		folder='rinrusmain/static/files/'+request.POST["jobName"] + '/'
 		fs = FileSystemStorage(location=folder) 
+		print(myfile.content_type)
 		try:
-			if myfile.content_type == 'application/octet-stream': 
+			if myfile.content_type == 'application/octet-stream' or myfile.content_type =='application/xml-external-parsed-entity': 
 					  chainTemp=request.POST["row1"]+request.POST["row2"]+request.POST["row3"]+request.POST["row4"]+request.POST["row5"]
+					  chainTemp=[str(i) for i in chainTemp]
+					  chainTemp=filter(lambda a:a != '*',chainTemp)
 					  residueTemp=request.POST["text1"]+"|"+request.POST["text2"]+"|"+request.POST["text3"]+"|"+request.POST["text4"]+"|"+request.POST["text5"]+"|"
+					  residueTemp=residueTemp.split('|')
+					  residueTemp=list(filter(None,residueTemp))
+					  print(residueTemp)
+
 					  fileName=request.POST["jobName"]+".pdb"
 					  filename = fs.save(fileName, myfile)
-					  uploaded_file_url = '\\'+request.POST["jobName"] + '\\'+fs.url(filename)
-					  temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp.split('|'),chain=[str(i) for i in chainTemp],simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.0) #remember to change model version when making changes
+					  uploaded_file_url = '/'+request.POST["jobName"] + '/'+fs.url(filename)
+					  temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=[str(i) for i in chainTemp],simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.0) #remember to change model version when making changes
 					  temp_obj.save()
 					  return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
 			else:   

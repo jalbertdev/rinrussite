@@ -3,7 +3,7 @@ import os, shutil
 
 def run_scripts(path, residues, chains,name): #path in the format starting at the static folder
     os.system("chmod u+x rinrus_algs/probe")
-    probe_string="./rinrus_algs/probe "
+    probe_string='./rinrus_algs/probe -unformated -self "all"'
     probe_string+=path
     
     probe_path=(path[:path.rfind('/')])+name+".probe" #make probe file path
