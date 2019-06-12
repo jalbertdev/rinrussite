@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.core.files import File
-import datetime
+import datetime, logging
 from .scripts import processing_script as ps
 
 from . import models
@@ -42,12 +42,12 @@ def index(request):
                         #run simulation:
                         #add simulation zip to model
                     except Exception as e: 
-                        print(e)
+                        logging.exception("message") #eventually print logs to a file
                         print("Simulation Failed")     
                         case='sim_fail'
                 else: 
                     print("bad beans")   
-                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.0) #remember to change model version when making changes
+                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.1) #remember to change model version when making changes
                 temp_obj.save()
                 if case=='no_sim':
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
