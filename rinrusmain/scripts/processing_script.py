@@ -43,13 +43,19 @@ def run_scripts(path, residues, chains, name): #path in the format starting at t
     os.system("pymol -qc "+log_path)
 
     #Step 5
-    #for files:
-        #python pymol_scripts.py filename 301,302
-
+    for filename in os.listdir(directory):
+        if filename.endswith(".FILETYPE"): #add correct file types
+            #python pymol_scripts.py filename 301,302
+            continue
+        else:
+            continue
+        
     #Step 6 Create Zip File
     folder_path=path[:path.rfind('/')]
     output_path=output_path[:output_path.rfind('/')]+name+".zip"
     shutil.make_archive(output_path, 'zip', folder_path)
+    zipPath="" #path of the zip file
+    return zipPath
 
 
 
