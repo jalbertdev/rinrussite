@@ -9,6 +9,7 @@ from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.core.files import File
 import datetime
+from .scripts import processing_script as ps
 
 from . import models
 
@@ -23,6 +24,7 @@ def index(request):
                 chainTemp=request.POST["row1"]+request.POST["row2"]+request.POST["row3"]+request.POST["row4"]+request.POST["row5"]
                 chainTemp=[str(i) for i in chainTemp]
                 chainTemp=filter(lambda a:a != '*',chainTemp)
+                chainTemp=[str(i) for i in chainTemp]
                 residueTemp=request.POST["text1"]+"|"+request.POST["text2"]+"|"+request.POST["text3"]+"|"+request.POST["text4"]+"|"+request.POST["text5"]+"|"
                 residueTemp=residueTemp.split('|')
                 residueTemp=list(filter(None,residueTemp))
@@ -31,19 +33,29 @@ def index(request):
                 fileName=request.POST["jobName"]+".pdb"
                 filename = fs.save(fileName, myfile)
                 uploaded_file_url = '/'+request.POST["jobName"] + '/'+fs.url(filename) #run processing is selected
+                case='no_sim'
                 if request.POST['run_processing']=="yes":
                     try:
                         print("dog")
+                        zip_path=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
                         #format PDB path
-                        #run simulation: run_scripts(PDBpath, residueTemp, chainTemp, request.POST["jobName"])
+                        #run simulation:
                         #add simulation zip to model
-                    except: 
+                    except Exception as e: 
+                        print(e)
                         print("Simulation Failed")     
+                        case='sim_fail'
                 else: 
                     print("bad beans")   
-                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=[str(i) for i in chainTemp],simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.0) #remember to change model version when making changes
+                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.0) #remember to change model version when making changes
                 temp_obj.save()
-                return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
+                if case=='no_sim':
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
+                elif case=='sim_fail':
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Failed'})
+                else:
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Successful'})
+                    
             else:   
                       return render(request, 'rinrusmain/index.html',{'uploaded_file_error': "Improper file type"})
         except Exception as e:

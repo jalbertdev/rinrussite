@@ -12,16 +12,18 @@ def get_res_chain(residues,chains):
     res=res[:len(res)-1]
     return res
 
-def run_scripts(path, residues, chains, name): #path in the format starting at the static folder
-    print(os.getcwd())
-    reschain=get_res_chain(residues,chains)
-    path="" #create PDB path
+def run_scripts(path, residues, chains, name): 
+    #located in rinrussite folder
+    reschain=get_res_chain(residues,chains) #format residue and chain into proper format to run scripts 
+    file_path="rinrusmain/static/files"
+    path=file_path+path
+    print(path)
 
     #Step 1
     os.system("chmod u+x rinrus_algs/probe")
     probe_string='./rinrus_algs/probe -unformated -self "all" '
     probe_string+=path
-    probe_path=(path[:path.rfind('/')])+name+".probe" #make probe file path
+    probe_path=(path[:path.rfind('.')])+".probe" #make probe file path
     probe_string+=" > " + probe_path
     os.system(probe_string)
 
