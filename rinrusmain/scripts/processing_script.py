@@ -1,5 +1,5 @@
 import os, shutil
-#import rinrus_algs.probe2rins as p2r
+
 
 def get_res_chain(residues,chains):
     length=min(len(residues),len(chains))
@@ -19,8 +19,9 @@ def run_scripts(path, residues, chains, name):
     path=file_path+path
     print(path)
 
+    #USE BIN FOLDER SCRIPTS
     #Step 1
-    os.system("chmod u+x rinrus_algs/probe")
+    os.system("chmod u+x rinrus_algs/probe") #move to install instructions
     probe_string='./rinrus_algs/probe -unformated -self "all" '
     probe_string+=path
     probe_path=(path[:path.rfind('.')])+".probe" #make probe file path
@@ -28,30 +29,33 @@ def run_scripts(path, residues, chains, name):
     os.system(probe_string)
 
     #Step 2
-    probe2rins_string="python rinrusAlgs/probe2rins.py "
+
+    #SCRIPTS IN BIN
+    #python3 probe2rins.py -f 3bwm_h.probe -s A:300,A:301,A:302
+    probe2rins_string="python rinrusAlgs/probe2rins.py -f "
     probe2rins_string+=probe_path
-    probe2rins_string+=reschain
+    probe2rins_string+=" -s "+reschain
     os.system(probe2rins_string)
 
     #Step 3
-    #./../scripts/probe_freq_2pdb.py 3bwm_h_mg_ts_wGlu199.ent file.probe freq_per_res.dat  A,300,A,301,A,302
+    #python3 ../bin/probe_freq_2pdb.py pdb.ent file.probe freq_per_res.dat A,300,A,301,A,302
     probe_freq_string="python rinrusAlgs/probe_freq_2pdb.py " + path + " " + probe_path + " "
     freq_path=""
     probe_freq_string+= freq_path + " " + reschain
     os.system(probe_freq_string)
+    #creates a ton of pdb files called res_XX.pdb
 
     #Step 4
-    log_path=""
-    os.system("pymol -qc "+log_path)
-
-    #Step 5
+    #interate through res_xx.pdb
     for filename in os.listdir(directory):
         if filename.endswith(".FILETYPE"): #add correct file types
-            #python pymol_scripts.py filename 301,302
+            #python3 ../bin/pymol_scripts.py res_5.pdb 301,302
+            log_path=""
+            os.system("pymol -qc "+log_path)
             continue
         else:
             continue
-        
+    
     #Step 6 Create Zip File
     folder_path=path[:path.rfind('/')]
     output_path=output_path[:output_path.rfind('/')]+name+".zip"
