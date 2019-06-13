@@ -14,7 +14,7 @@ def get_res_chain(residues,chains):
 
 def run_scripts(path, residues, chains, name): 
     #located in rinrussite folder
-    reschain=get_res_chain(residues,chains) #format residue and chain into proper format to run scripts 
+    reschain=get_res_chain(residues,chains) #format residue and chain into proper format to run scripts m
     file_path="rinrusmain/static/files"
     path=file_path+path
     print(path)
