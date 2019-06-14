@@ -7,3 +7,5 @@ Admin: "http://127.0.0.1:8000/admin"
 
 File upload is in rinrusmain/views.py
 Processing Script is in  rinrusmain/scripts/processing_script.py
+
+When replacing rinrus scripts, copy scripts in bin folder and lib3
