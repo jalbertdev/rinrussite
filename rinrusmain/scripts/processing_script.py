@@ -29,7 +29,6 @@ def run_scripts(path, residues, chains, name):
     print(directory)
     
 
-    #USE BIN FOLDER SCRIPTS
     #Step 1
     probe_string='./rinrus_algs/probe -unformated -self "all" '
     probe_string+=path
@@ -49,9 +48,8 @@ def run_scripts(path, residues, chains, name):
     probe_freq_string="python3 rinrusAlgs/probe_freq_2pdb.py " + path + " " + probe_path + " "
     freq_path=(path[:path.rfind('/')])+"/freq_per_res.dat"
     print(freq_path)
-    #HERE
-    reschain2=reschain#replace : with ,
-    probe_freq_string+= freq_path + " " + reschain
+    reschain2=reschain.replace(':',',')
+    probe_freq_string+= freq_path + " " + reschain2
     os.system(probe_freq_string)
     #creates a ton of pdb files called res_XX.pdb
 
@@ -59,20 +57,17 @@ def run_scripts(path, residues, chains, name):
     #interate through res_xx.pdb
     log_path=(path[:path.rfind('/')])+"/log.pml"
     for filename in os.listdir(directory):
-        if filename.endswith(".FILETYPE") and  filename.startswith('res_'): #CHECK SECOND PART
+        if filename.endswith(".pml") and  filename.startswith('res_'): #CHECK SECOND PART
             #python3 ../bin/pymol_scripts.py res_5.pdb 301,302
             pymol_string="python3 rinrusAlgs/pymol_scripts.py "+directory+"/"+filename+" "+pymol_res(residues)
             os.system(pymol_string)
             os.system("pymol -qc "+log_path)
-            continue
-        else:
-            continue
     
     #Step 6 Create Zip File
     folder_path=directory
-    zip_path=output_path[:folder_path.rfind('/')+1]+name+".zip"
+    zip_path=folder_path[:folder_path.rfind('/')+1]+name+".zip"
     shutil.make_archive(zip_path, 'zip', folder_path)
-    return zipPath
+    return zip_path
 
 
 
