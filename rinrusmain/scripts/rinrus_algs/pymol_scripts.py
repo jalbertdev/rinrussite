@@ -1,14 +1,15 @@
-#!/usr/bin/env python
-
-
+"""
+This is a program written by qianyi cheng in deyonker research group
+at university of memphis.
+"""
 import os, sys
 
 def system_run(cmd):
-    print cmd
+    print(cmd)
     exit = os.system(cmd)
     if ( exit != 0 ):
-        print 'failed to run:'
-        print cmd
+        print('failed to run:')
+        print(cmd)
         sys.exit()
 
 input = sys.argv[1]
@@ -20,5 +21,5 @@ if len(sys.argv) == 3:
 elif len(sys.argv) == 2:
     logf.write('load %s\ncmd.h_add("%s")\ncmd.save("./%s")'%(input,name,ouput))
 else:
-    print "Something is wrong!"
-print "Please run 'pymol -qc log.pml'"
+    print("Something is wrong!")
+print("Please run 'pymol -qc log.pml'")

@@ -21,7 +21,6 @@ def run_scripts(path, residues, chains, name):
 
     #USE BIN FOLDER SCRIPTS
     #Step 1
-    os.system("chmod u+x rinrus_algs/probe") #move to install instructions
     probe_string='./rinrus_algs/probe -unformated -self "all" '
     probe_string+=path
     probe_path=(path[:path.rfind('.')])+".probe" #make probe file path

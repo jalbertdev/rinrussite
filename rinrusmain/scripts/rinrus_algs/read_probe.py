@@ -1,10 +1,16 @@
+"""
+This is a program written by Qianyi Cheng in DeYonker Research Group
+at University of Memphis.
+Version 1.0
+"""
+
 import sys, os
 from numpy import *
-from PDB import *
 from res_atoms import *
 
-
 def get_sel_atoms(pdb,res_list,res_atom,res_name,res_info,pdb_res_name):   # res_list in format ('A',400,'A',62)
+    #pdb [ record, serial, atomname, altloc, resname, chain, resnum, achar, x, y, z, occ, tfactor, segid, elsymbol, charge.strip(), fix ] 
+    # 1      0       1       2       3       4           5   6       7      8  9  10 11   12         13      14      15              16
     for i in range(0,len(res_list),2):
         chain = res_list[i]
         resnum = res_list[i+1]
@@ -141,7 +147,7 @@ def get_res_parts(res,value):   # res is res_name[key], value is res_atom[key] c
         elif bool(set(value)&set(res_atoms_sc[res])) and not bool(set(value)&set(case3)):
             atoms = check_sc(res,value,atoms)
         else:
-            print "Something is wrong!"
+            print("Something is wrong!")
 
     return atoms
 

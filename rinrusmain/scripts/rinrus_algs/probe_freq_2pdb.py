@@ -1,7 +1,10 @@
-#!/usr/bin/env python
-
+"""
+This is a program written by qianyi cheng in deyonker research group
+at university of memphis.
+Version 1.0
+"""
 import os, sys, re
-from PDB import *
+from read_write_pdb import *
 from read_probe import *
 from copy import *
 
@@ -13,7 +16,7 @@ from copy import *
 ###################################################################
 
 
-pdb   = read_pdb(sys.argv[1])
+pdb, res_info, tot_charge = read_pdb(sys.argv[1])
 probe = sys.argv[2]
 freqf = sys.argv[3]
 list4 = sys.argv[4]
@@ -23,7 +26,7 @@ c = list4.split(',')
 for i in range(0,len(c),2):
     idx_list.append(c[i])
     idx_list.append(int(c[i+1]))
-print idx_list
+print(idx_list)
 
 res_name = {}
 res_atom = {}
@@ -50,7 +53,7 @@ with open(freqf) as f:
 sm = len(lines)
 j = len(sel_key)
 for i in range(sm):
-    print lines[i].split()
+    print(lines[i].split())
     c = lines[i].split()
     cha = c[0]
     res = int(c[1])
@@ -67,7 +70,7 @@ res_atom, res_name, res_cout = get_probe_atoms(probe,res_name,res_atom,res_cout)
 #nres_list = get_res_list(res_atom)
 for nm_res in sorted(qf.keys()):
     res_list = qf[nm_res]
-    print nm_res, qf[nm_res]
+    print(nm_res, qf[nm_res])
     for key in res_list.keys():
         for res in sorted(res_list[key]):
             if (key,res) in sel_key or res_name[(key,res)] == 'HOH':

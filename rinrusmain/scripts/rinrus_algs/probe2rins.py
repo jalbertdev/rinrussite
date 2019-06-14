@@ -1,8 +1,11 @@
-#!/usr/bin/env python
-
+"""
+This is a program written by qianyi cheng in deyonker research group
+at university of memphis.
+"""
 import os, sys, re
 from copy import *
 from numpy import *
+import argparse
 
 
 aa_trans_dic = {
@@ -50,7 +53,7 @@ def get_inttype(c):
     elif c == 'hb':
         action = 'hbond'
     else:
-        print 'Cannot find interaction type!'
+        print('Cannot find interaction type!')
         return "None"
     return action
 
@@ -97,10 +100,8 @@ def check_dict_repeat(key,a,dict):
 
 def probe_analysis(probefile,sel_res):
     ### sel_res format A:300,A:301,A:302 ###
-    print sel_res
     sel_res_list = sel_res.split(',')
     res_list = deepcopy(sel_res_list)
-    print res_list
 
     res_acts = {}
     actions  = []
@@ -109,7 +110,6 @@ def probe_analysis(probefile,sel_res):
 
     with open(probefile,'r') as f:
         lines = f.readlines()
-    print lines[0]
 
     for line in lines:
         c = line.split(':')
@@ -164,12 +164,12 @@ def order_reslist(res_list):
 
 def print_list(res_list):
     for i in res_list:
-        print i
+        print(i)
 
 
 def print_dict(dict):
     for i in sorted(dict.keys()):
-        print i, dict[i]
+        print(i, dict[i])
 
 
 def write_res_freq(res_list, res_acts, res_atoms):
@@ -201,22 +201,26 @@ def write_rin(actions):
     f_act.close()
 
 def write_sif(siflines):
-    f_sif = open(probefile.replace(".probe",".sif"),'w')
+    probef_n = probefile.split('/')[-1] 
+    f_sif = open(probef_n.replace(".probe",".sif"),'w')
     for key in sorted(siflines.keys()):
         f_sif.write('%-60s %10d\n'%(key,siflines[key]))
     f_sif.close()
 
 if __name__ == "__main__":
-    if (len(sys.argv) < 3):
-        print "Usage: probe_file select_res[in form of A:300,A:301,A:302]"
-        exit()
-    probefile = sys.argv[1]
-    sel_res = sys.argv[2]
+    parser = argparse.ArgumentParser(description='Generate interaction information from probe file.\
+            Usage: probe2rins.py -p probe_file -s seed')
+    parser.add_argument('-f',dest='probefile',default=None,help='probe_file')
+    parser.add_argument('-s',dest='seed',default=None,help='seed for select RIN, in the format of "A:300,A:301,A:302"')
+
+    args = parser.parse_args()
+    probefile = args.probefile
+    sel_res = args.seed
 
     res_list, res_acts, actions, siflines, res_atoms = probe_analysis(probefile,sel_res)
     res_dict = order_reslist(res_list)
 
-    write_rin(actions)
     write_sif(siflines)
+    write_rin(actions)
     write_res_atom(res_dict,res_atoms)
     write_res_freq(res_list,res_acts,res_atoms)
