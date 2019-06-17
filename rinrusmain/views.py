@@ -28,8 +28,7 @@ def index(request):
                 residueTemp=request.POST["text1"]+"|"+request.POST["text2"]+"|"+request.POST["text3"]+"|"+request.POST["text4"]+"|"+request.POST["text5"]+"|"
                 residueTemp=residueTemp.split('|')
                 residueTemp=list(filter(None,residueTemp))
-                print(residueTemp)
-
+                print(request.POST["jobName"])
                 fileName=request.POST["jobName"]+".pdb"
                 filename = fs.save(fileName, myfile)
                 uploaded_file_url = '/'+request.POST["jobName"] + '/'+fs.url(filename) #run processing is selected

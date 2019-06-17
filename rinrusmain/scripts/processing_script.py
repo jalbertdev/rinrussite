@@ -24,48 +24,48 @@ def run_scripts(path, residues, chains, name):
     file_path="rinrusmain/static/files"
     path=file_path+path
     directory=(path[:path.rfind('/')])
-    print(path)
-    print(reschain)
-    print(directory)
-    
-
+        
+    os.system("pwd")
     #Step 1
-    probe_string='./rinrus_algs/probe -unformated -self "all" '
+    probe_string='./rinrusmain/scripts/rinrus_algs/probe -unformated -self "all" '
     probe_string+=path
     probe_path=(path[:path.rfind('.')])+".probe" #make probe file path
     probe_string+=" > " + probe_path
+    print(probe_string)
     os.system(probe_string)
 
     #Step 2
     #python3 probe2rins.py -f 3bwm_h.probe -s A:300,A:301,A:302
-    probe2rins_string="python3 rinrusAlgs/probe2rins.py -f "
+    probe2rins_string="python3 rinrusmain/scripts/rinrus_algs/probe2rins.py -f "
     probe2rins_string+=probe_path
     probe2rins_string+=" -s "+reschain
+    print(probe2rins_string)
     os.system(probe2rins_string)
 
     #Step 3
     #python3 ../bin/probe_freq_2pdb.py pdb.ent file.probe freq_per_res.dat A,300,A,301,A,302
-    probe_freq_string="python3 rinrusAlgs/probe_freq_2pdb.py " + path + " " + probe_path + " "
+    probe_freq_string="python3 rinrusmain/scripts/rinrus_algs/probe_freq_2pdb.py " + path + " " + probe_path + " "
     freq_path=(path[:path.rfind('/')])+"/freq_per_res.dat"
-    print(freq_path)
     reschain2=reschain.replace(':',',')
     probe_freq_string+= freq_path + " " + reschain2
+    print(probe_freq_string)
     os.system(probe_freq_string)
     #creates a ton of pdb files called res_XX.pdb
 
-    #Step 4
+    #Step 4+5
     #interate through res_xx.pdb
     log_path=(path[:path.rfind('/')])+"/log.pml"
     for filename in os.listdir(directory):
         if filename.endswith(".pml") and  filename.startswith('res_'): #CHECK SECOND PART
             #python3 ../bin/pymol_scripts.py res_5.pdb 301,302
-            pymol_string="python3 rinrusAlgs/pymol_scripts.py "+directory+"/"+filename+" "+pymol_res(residues)
+            pymol_string="python3 rinrusmain/scripts/rinrus_algs/pymol_scripts.py "+directory+"/"+filename+" "+pymol_res(residues)
+            print(pymol_string)
             os.system(pymol_string)
             os.system("pymol -qc "+log_path)
     
     #Step 6 Create Zip File
     folder_path=directory
-    zip_path=folder_path[:folder_path.rfind('/')+1]+name+".zip"
+    zip_path=folder_path[:folder_path.rfind('/')+1]+name
     shutil.make_archive(zip_path, 'zip', folder_path)
     return zip_path
 
