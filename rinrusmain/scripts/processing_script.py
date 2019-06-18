@@ -62,7 +62,7 @@ def run_scripts(path, residues, chains, name):
     log_path="log.pml"
     os.system("ls")
     for filename in os.listdir("."):
-        if filename.endswith(".pdb") and  filename.startswith('res_'): #CHECK SECOND PART
+        if filename.endswith(".pdb") and  filename.startswith('res_') and not filename.endswith("_h.pdb"): #CHECK SECOND PART
             #python3 ../bin/pymol_scripts.py res_5.pdb 301,302
             pymol_string="python3 ../../../scripts/rinrus_algs/pymol_scripts.py "+filename+" "+pymol_res(residues)
             print(pymol_string)
@@ -70,8 +70,13 @@ def run_scripts(path, residues, chains, name):
             os.system("pymol -qc "+log_path)
         print(filename)
     
-    
-    #Step 6 Create Zip File
+    #Step 6 Create res folder
+    os.mkdir("./res")
+    for filename in os.listdir("."):
+        if filename.endswith(".pdb") and  filename.startswith('res_'): #CHECK SECOND PART
+            shutil.move(filename,"res/"+filename)
+
+    #Step 7 Create Zip File
     os.chdir(home) #reset current directory location
     folder_path=directory
     zip_path=folder_path[:folder_path.rfind('/')+1]+name
