@@ -1,6 +1,5 @@
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect, Http404
 from django.template import loader
-from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from .models import Simulation
 from django.urls import reverse
@@ -8,10 +7,10 @@ from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from django.core.files import File
-import datetime, logging
+import datetime, logging, os
 from .scripts import processing_script as ps
-
 from . import models
+
 
 def index(request):
     if request.method == 'POST' and request.FILES['myfile']:
@@ -98,4 +97,12 @@ def sim_page(request,sim_ID):
 def about(request):
         return render(request,'rinrusmain/about.html')
 
-
+def download(request, path):
+    print(settings.MEDIA_ROOT)
+    file_path = os.path.join(settings.MEDIA_ROOT, path)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/vnd.ms-excel")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
