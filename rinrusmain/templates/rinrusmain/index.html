@@ -215,6 +215,16 @@ a.article:hover {
     }
 }
 </style>
+<script>
+	function keypresshandler(event)
+    {
+         var charCode = event.keyCode;
+         //Non-numeric character range
+         if (charCode > 31 && (charCode < 48 || charCode > 57))
+         return false;
+    }
+</script>
+
 <body>
 {% include "./header.html" %}	
 
@@ -224,19 +234,19 @@ a.article:hover {
 <form method="post" enctype="multipart/form-data">
 {% csrf_token %}
 <div class="form-group row">
-	<input class="form-control" type="text"  name="jobName">	
+	<input class="form-control" type="text" pattern="[a-zA-Z0-9-]+" name="jobName" required>	
 </div>
-<small id="fileHelp" class="form-text text-muted">Pick a unique job name</small>
+<small id="fileHelp" class="form-text text-muted">Pick a unique job name (Only Letters and Numbers)</small>
 <br>
 		
 <div class="form-group row">
 	<input class="form-control" type="text"  name="userName">	
 </div>
-<small id="fileHelp" class="form-text text-muted">Provide a user or organization name</small>
+<small id="fileHelp" class="form-text text-muted" required>Provide a user or organization name</small>
 	<p>
 	<div class="form-group row">
 	
-		<input type="file" class="form-control-file"  aria-describedby="fileHelp" name="myfile">
+		<input type="file" class="form-control-file"  aria-describedby="fileHelp" name="myfile" required>
 		<small id="fileHelp" class="form-text text-muted">Upload a Protenated PDB file</small>
 		
 	</div>
@@ -260,12 +270,12 @@ a.article:hover {
 	<h5>Seed:</h5>
 	<div class="row">
 		<div class= "col-md-1"><h6> </h6></div>
-		<div class= "col-md-3"><h6>Chain</h6> </div>
+		<div class= "col-md-2"><h6>Chain</h6> </div>
 		<div class= "col-md-2"><h6>Residue </h6></div>
 	</div>
 	<div class="row" >
 		<div class= "col-md-1">1. </div>
-		<div class= "col-md-3"><select class="btn btn-mini" name="row1"> 		
+		<div class= "col-md-2"><select class="btn btn-mini" name="row1"> 		
 				<option>*</option>
 				<option>A</option>
 				<option>B</option>
@@ -279,11 +289,11 @@ a.article:hover {
 				<option>J</option>
 				</select> </div>
 		<div class= "col-md-2"><div class="form-group row">
-			<input class="form-control" type="text"  name="text1"></div> </div>
+			<input class="form-control" type="number" min="-100" max="10000"  name="text1"></div> </div>
 	</div>
 	<div class="row" >
 		<div class= "col-md-1">2. </div>
-		<div class= "col-md-3"><select class="btn btn-mini" name="row2"> 		
+		<div class= "col-md-2"><select class="btn btn-mini" name="row2"> 		
 				<option>*</option>
 				<option>A</option>
 				<option>B</option>
@@ -297,11 +307,11 @@ a.article:hover {
 				<option>J</option>
 				</select> </div>
 		<div class= "col-md-2"><div class="form-group row">
-			<input class="form-control" type="text"  name="text2"></div> </div>
+			<input class="form-control" type="number" min="-100" max="10000"  name="text2"></div> </div>
 	</div>
 	<div class="row" >
 		<div class= "col-md-1">3. </div>
-		<div class= "col-md-3"><select class="btn btn-mini" name="row3"> 		
+		<div class= "col-md-2"><select class="btn btn-mini" name="row3"> 		
 				<option>*</option>
 				<option>A</option>
 				<option>B</option>
@@ -315,11 +325,11 @@ a.article:hover {
 				<option>J</option>
 				</select> </div>
 		<div class= "col-md-2"><div class="form-group row">
-			<input class="form-control" type="text"  name="text3"></div> </div>
+			<input class="form-control" type="number" min="-100" max="10000"  name="text3"></div> </div>
 	</div>
 	<div class="row" >
 		<div class= "col-md-1">4. </div>
-		<div class= "col-md-3"><select class="btn btn-mini" name="row4"> 		
+		<div class= "col-md-2"><select class="btn btn-mini" name="row4"> 		
 				<option>*</option>
 				<option>A</option>
 				<option>B</option>
@@ -333,11 +343,11 @@ a.article:hover {
 				<option>J</option>
 				</select> </div>
 		<div class= "col-md-2"><div class="form-group row">
-			<input class="form-control" type="text"  name="text4"></div> </div>
+			<input class="form-control" type="number" min="-100" max="10000" name="text4"></div> </div>
 	</div>
 	<div class="row" >
 		<div class= "col-md-1">5. </div>
-		<div class= "col-md-3"><select class="btn btn-mini" name="row5"> 		
+		<div class= "col-md-2"><select class="btn btn-mini" name="row5"> 		
 				<option>*</option>
 				<option>A</option>
 				<option>B</option>
@@ -351,7 +361,7 @@ a.article:hover {
 				<option>J</option>
 				</select> </div>
 		<div class= "col-md-2"><div class="form-group row">
-			<input class="form-control" type="text"  name="text5"></div> </div>
+			<input class="form-control" type="number" min="-100" max="10000"  name="text5"></div> </div>
 	</div>
 	<div class="row">
 		<div class= "col-md-1"><button type="button" class="btn btn-link">+</button> </div>
