@@ -74,11 +74,13 @@ def results(request):
         #print(date)
         simulations=[]
         if(type=="Show All"):
-            simulations = list(models.Simulation.objects.all())
+            simulations = list(models.Simulation.objects.all().order_by('-idNumber'))
         elif(type=="Job Name"):
             simulations = list(models.Simulation.objects.filter(simName__icontains=text))
         elif(type=="ID Number"):
             simulations = list(models.Simulation.objects.filter(idNumber=int(text)))
+        elif(type=="ID Number"):
+            simulations = list(models.Simulation.objects.filter(userName__icontains=text))
         #print(simulations)
         return render(request,'rinrusmain/results.html',{'simulations' : simulations})
         
