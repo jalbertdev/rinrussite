@@ -20,6 +20,8 @@ def index(request):
         print(myfile.content_type)
         try:
             if myfile.content_type == 'application/octet-stream' or myfile.content_type =='application/xml-external-parsed-entity': 
+                if len(models.Simulation.objects.filter(simName=request.POST["jobName"]))>0:
+                    return render(request, 'rinrusmain/index.html',{'uploaded_file_error': "Duplicate Job Name"})  
                 chainTemp=request.POST["row1"]+request.POST["row2"]+request.POST["row3"]+request.POST["row4"]+request.POST["row5"]
                 chainTemp=[str(i) for i in chainTemp]
                 chainTemp=filter(lambda a:a != '*',chainTemp)
@@ -36,16 +38,13 @@ def index(request):
                     try:
                         print("dog")
                         zip_path=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
-                        #format PDB path
-                        #run simulation:
-                        #add simulation zip to model
                     except Exception as e: 
                         logging.exception("message") #eventually print logs to a file
                         print("Simulation Failed")     
                         case='sim_fail'
                 else: 
                     print("bad beans")   
-                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.1) #remember to change model version when making changes
+                temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.2) #remember to change model version when making changes
                 temp_obj.save()
                 if case=='no_sim':
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
