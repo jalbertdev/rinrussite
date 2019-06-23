@@ -173,12 +173,14 @@
 	<br />
  </form>
  {% if uploaded_file_url %}
-    <p><font color="red">File uploaded as: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></font></p>
+    <p><font color="red">File uploaded as:{{ uploaded_file_url }}</font></p>
   {% endif %}
   {% if uploaded_file_error %}
 			<p><font color="red">{{ uploaded_file_error }} </font></p>
 	{% endif %}
-  
+  {% if sim_page %}
+ 	 <a href="{% url 'sim' sim_page.idNumber  %}" style="color:blue">Link to Sim Page</a>
+  {% endif %}
  
 {% endblock %}
 </body>

@@ -51,7 +51,7 @@ def index(request):
                 elif case=='sim_fail':
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Failed'})
                 else:
-                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Successful'})
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Successful', 'sim_page':temp_obj})
                     
             else:   
                       return render(request, 'rinrusmain/index.html',{'uploaded_file_error': "Improper file type"})
