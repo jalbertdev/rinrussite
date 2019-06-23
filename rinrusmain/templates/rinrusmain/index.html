@@ -28,7 +28,7 @@
 
 {% load static %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data" autocomplete="on"> 
 {% csrf_token %}
 <div class="form-group row">
 	<input class="form-control" type="text" pattern="[a-zA-Z0-9-]+" name="jobName" required>	
