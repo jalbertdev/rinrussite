@@ -20,65 +20,58 @@
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
 
 </head>
+
 <style>
     @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 </style>
 
-<!-- attempt at hiding date field
-<script language="javascript">
-	function hideDate(){
-		//if(document.getElementByID("dropdown")=="Date"){
-			document.getElementByID("dateInput").style.visibility="hidden";
-		//else{
-			//document.getElementByID("dateInput").style.visibility="visible";
-		//}
-	}
-</script>
--->
-
-
 <body>
 {% include "./header.html" %}	
 
+<script>
+	function date_func(option) {
+		var x =document.getElementById("dateInput");
+		if(option==="date"){
+			x.style.display ="block";
+		}
+		else{
+			x.style.display ="none";
+		}
+	}
+</script>
 
 {% load static %}
 {% block content %}
 <form  action="{% url 'results' %}" type="GET">
 {% csrf_token %}
+
 	<div class="form-group row">
 		&nbsp;
 		<input class="form-control" type="text"  name="textField" >	
 		&nbsp;&nbsp;&nbsp;
 		<div class="row" >
 				<div class= "col-md-3">
-					<select class="btn btn-mini" id="dropdown" name="searchType"> 		
-					<option>Job Name</option>
+					<select class="btn btn-mini" id="dropdown" name="searchType" onchange="date_func(this.value)"> 		
+					<option selected="selected">Job Name</option>
 					<option>ID Number</option>
 					<option>User</option>
-					<option>Date</option> 
+					<option value="date">Date</option> 
 					<option>Show All</option>
 					</select> 
 				</div>
 		</div>
 		&nbsp;&nbsp;&nbsp;&nbsp;
-		<input type="date" id="dateInput" name="date">
+		<input type="date" id="dateInput" name="date" style="display:none">
 	</div>
 	<small id="fileHelp" class="form-text text-muted">Search by job name</small>
-	<p>
-		<button type="submit" onclick="hideDate()" class="btn btn-primary">Submit</button>
-	</p>
+	<button type="submit" onclick="hideDate()" class="btn btn-primary">Submit</button>
+	<p id="demo"></p>
 	<hr>
 	
-
+	
 
 </form>
- {% if uploaded_file_url %}
-    <p><font color="red">File uploaded as: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></font></p>
-  {% endif %}
-  {% if uploaded_file_error %}
-			<p><font color="red">{{ uploaded_file_error }} </font></p>
-	{% endif %}
-  
+   
  
 {% endblock %}
 </body>
