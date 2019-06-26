@@ -38,6 +38,7 @@ def index(request):
                     try:
                         print("dog")
                         zip_path=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
+                        case="sim_success"
                     except Exception as e: 
                         logging.exception("message") #eventually print logs to a file
                         print("Simulation Failed")     
@@ -47,7 +48,7 @@ def index(request):
                 temp_obj=Simulation(unProcessedPDBURL=uploaded_file_url,residue=residueTemp,chain=chainTemp,simName=request.POST["jobName"], userName=request.POST["userName"], modelVersion=1.2) #remember to change model version when making changes
                 temp_obj.save()
                 if case=='no_sim':
-                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url})
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'No Simulation'})
                 elif case=='sim_fail':
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Failed'})
                 else:
