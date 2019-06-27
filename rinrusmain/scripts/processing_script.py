@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, sys
 
 
 def get_res_chain(residues,chains):
@@ -27,9 +27,16 @@ def run_scripts(path, residues, chains, name):
     home=os.getcwd() #to return 
     directory=(path[:path.rfind('/')])
 
-    #Step 1
+    #Step 0: Logging
     os.chdir(home+"/"+directory) #move into file folder
     os.system("pwd")
+    f = open("script_log.txt", 'w')
+    temp=sys.stdout
+    sys.stdout = f
+    print("test")
+    
+
+    #Step 1: Probe
     probe_string='./../../../scripts/rinrus_algs/probe -unformated -self "all" '
     pdb_path=""+name+".pdb"
     probe_string+=pdb_path
@@ -38,7 +45,8 @@ def run_scripts(path, residues, chains, name):
     print(probe_string)
     os.system(probe_string)
 
-    #Step 2
+
+    #Step 2: Probe2Rins
     #python3 probe2rins.py -f 3bwm_h.probe -s A:300,A:301,A:302
     
     probe2rins_string="python3 ../../../scripts/rinrus_algs/probe2rins.py -f "
@@ -47,7 +55,7 @@ def run_scripts(path, residues, chains, name):
     print(probe2rins_string)
     os.system(probe2rins_string)
 
-    #Step 3
+    #Step 3: Probe_freq_2pdb
     #python3 ../bin/probe_freq_2pdb.py pdb.ent file.probe freq_per_res.dat A,300,A,301,A,302
     probe_freq_string="python3 ../../../scripts/rinrus_algs/probe_freq_2pdb.py " + pdb_path + " " + probe_path + " "
     freq_path="freq_per_res.dat"
@@ -57,7 +65,7 @@ def run_scripts(path, residues, chains, name):
     os.system(probe_freq_string)
     #creates a ton of pdb files called res_XX.pdb
 
-    #Step 4+5
+    #Step 4+5: Pymol scripts and Pymol
     #interate through res_xx.pdb
     log_path="log.pml"
     os.system("ls")
@@ -76,7 +84,11 @@ def run_scripts(path, residues, chains, name):
         if filename.endswith(".pdb") and  filename.startswith('res_'): #CHECK SECOND PART
             shutil.move(filename,"res/"+filename)
 
+
+
     #Step 7 Create Zip File
+    f.close() #close logging file
+    sys.stdout=temp
     os.chdir(home) #reset current directory location
     folder_path=directory
     zip_path=folder_path[:folder_path.rfind('/')+1]+name
