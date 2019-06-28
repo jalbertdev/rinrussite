@@ -1,14 +1,17 @@
 Run Program using python3: python3 manage.py runserver
+
+First time initializing:
 Create database: "python manage.py makemigrations" then "python manage.py migrate"
 Create super user: "python manage.py createsuperuser"
+
 Urls: 
 Home: "http://127.0.0.1:8000/" and navigate from there
 Admin: "http://127.0.0.1:8000/admin"
 
-File upload is in rinrusmain/views.py
+
+File upload is in rinrusmain/views.py under index
 Processing Script is in  rinrusmain/scripts/processing_script.py
 
-When replacing rinrus scripts, copy scripts in bin folder and lib3
-
+When replacing rinrus scripts, copy scripts from https://github.com/MiloCheng17/RINRUS bin folder and lib3 (last updated 6/27/19)
 
 If not working, add scripts from lib3 folder to path
