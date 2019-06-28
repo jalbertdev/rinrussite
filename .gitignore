@@ -4,6 +4,7 @@ db.sqlite3
 #ignore these folders
 rinrusmain/migrations
 rinrusmain/static/files
+myvenv
 
 
 #ignore these filetypes
