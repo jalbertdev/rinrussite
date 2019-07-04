@@ -3,6 +3,7 @@ Run Program using python3:
 "python3 manage.py runserver"
 
 First time initializing:
+Add lib path to bash rc: "vi .bashrc" and add "export PYTHONPATH=$PYTHONPATH:/usr/local/lib:/home/josh/Documents/RINRUS/lib3"
 Start venv: "python3 -m venv myvenv"
 Install Requirements: "pip3 install -r requirements.txt"
 Create database: "python manage.py makemigrations" then "python manage.py migrate"
