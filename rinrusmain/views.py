@@ -36,7 +36,6 @@ def index(request):
                 case='no_sim'
                 if request.POST['run_processing']=="yes":
                     try:
-                        print("dog")
                         sim_result=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
                         if sim_result=='good':
                             case="sim_success"
