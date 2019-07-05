@@ -70,8 +70,8 @@ def results(request):
     if request.method == 'GET':
         text=request.GET.get('textField', None)
         type=request.GET.get('searchType', None)
-        date=request.GET.get('date',None)
-        #print(date)
+        date=request.GET.get('dateIn',None)
+        date
         simulations=[]
         if(type=="Show All"):
             simulations = list(models.Simulation.objects.all().order_by('-idNumber'))
@@ -79,8 +79,11 @@ def results(request):
             simulations = list(models.Simulation.objects.filter(simName__icontains=text))
         elif(type=="ID Number"):
             simulations = list(models.Simulation.objects.filter(idNumber=int(text)))
-        elif(type=="ID Number"):
+        elif(type=="Organization"):
             simulations = list(models.Simulation.objects.filter(userName__icontains=text))
+        elif(type=="Date"):
+            simulations = list(models.Simulation.objects.filter(dateRan__date=date))
+        
         #print(simulations)
         return render(request,'rinrusmain/results.html',{'simulations' : simulations})
         
