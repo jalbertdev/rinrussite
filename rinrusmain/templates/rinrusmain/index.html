@@ -168,7 +168,10 @@
 	<br />
  </form>
 	{% if sim_page %}
+ 		<hr>
 		<a href="{% url 'sim' sim_page.idNumber  %}" style="color:blue">Link to Sim Page</a>
+		<br>
+		
 	{% endif %}
 
 	{% if uploaded_file_url %}
