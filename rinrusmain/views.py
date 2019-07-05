@@ -37,8 +37,11 @@ def index(request):
                 if request.POST['run_processing']=="yes":
                     try:
                         print("dog")
-                        zip_path=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
-                        case="sim_success"
+                        sim_result=ps.run_scripts(uploaded_file_url, residueTemp, chainTemp, request.POST["jobName"])
+                        if sim_result=='good':
+                            case="sim_success"
+                        else:
+                            case="sim_fail"
                     except Exception as e: 
                         logging.exception("message") #eventually print logs to a file
                         print("Simulation Failed")     
@@ -50,7 +53,7 @@ def index(request):
                 if case=='no_sim':
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'No Simulation'})
                 elif case=='sim_fail':
-                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Failed'})
+                    return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Failed, Check Log', 'sim_page':temp_obj})
                 else:
                     return render(request, 'rinrusmain/index.html', {'uploaded_file_url': uploaded_file_url, 'uploaded_file_error':'Simulation Successful', 'sim_page':temp_obj})
                     

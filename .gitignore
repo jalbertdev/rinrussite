@@ -1,11 +1,12 @@
 #ignore these files
 db.sqlite3
 
+
 #ignore these folders
 rinrusmain/migrations
 rinrusmain/static/files
 myvenv
-
+.vscode/
 
 #ignore these filetypes
 *.pyc
